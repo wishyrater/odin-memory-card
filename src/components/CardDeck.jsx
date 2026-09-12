@@ -1,7 +1,7 @@
 // should display 12 cards
 // should have an event handler to shuffle the cards if one is clicked
 import { useState } from "react";
-import Card from "./Card"
+import Card from "./Card";
 
 const initialChampions = [
     {
@@ -42,16 +42,18 @@ function shuffleArray(array) {
 }
 
 const clickedChampions = [];
+function flushClickedChampions() { clickedChampions.length = 0};
 
 export default function CardDeck({ score, handleGameOver, handleVictory, increaseScore }) {
     const [deck, setDeck] = useState(initialChampions);
 
     function handleClick(champion) {
         if (clickedChampions.some(clickedChampion => clickedChampion === champion)) {
-            clickedChampions.length = 0;
+            flushClickedChampions();
             handleGameOver();
         } else {
             if (score === initialChampions.length - 1) {
+                flushClickedChampions();
                 handleVictory();
             } else {
                 clickedChampions.push(champion);
