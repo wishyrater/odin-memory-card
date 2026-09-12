@@ -18,7 +18,12 @@ const initialChampions = [
         id: 3,
         imageUrl: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_0.jpg",
         name: "Jinx"
-    }
+    },
+    {
+        id: 4,
+        imageUrl: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Elise_0.jpg",
+        name: "Elise"
+    },
 ];
 
 // Fisher-Yates shuffle. Credit: https://stackoverflow.com/a/2450976
@@ -36,18 +41,31 @@ function shuffleArray(array) {
     return copy;
 }
 
-export default function CardDeck({ increaseScore }) {
+const clickedChampions = [];
+
+export default function CardDeck({ score, handleGameOver, handleVictory, increaseScore }) {
     const [deck, setDeck] = useState(initialChampions);
 
-    function handleClick() {
-        increaseScore();
-        setDeck(prevDeck => shuffleArray(prevDeck));
+    function handleClick(champion) {
+        if (clickedChampions.some(clickedChampion => clickedChampion === champion)) {
+            clickedChampions.length = 0;
+            handleGameOver();
+        } else {
+            if (score === initialChampions.length - 1) {
+                handleVictory();
+            } else {
+                clickedChampions.push(champion);
+                increaseScore();
+                setDeck(prevDeck => shuffleArray(prevDeck));
+            }
+
+        }
     }
 
     return (
         <div className="card-grid">
             {deck.map((champion) => (
-                <Card key={champion.id} imageUrl={champion.imageUrl} name={champion.name} onClick={handleClick} />
+                <Card key={champion.id} onClick={handleClick} champion={champion} />
             ))}
         </div>
     )
