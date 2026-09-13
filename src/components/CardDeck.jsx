@@ -1,30 +1,7 @@
 // should display 12 cards
 // should have an event handler to shuffle the cards if one is clicked
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Card from "./Card";
-
-const initialChampions = [
-    {
-        id: 1,
-        imageUrl: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Vayne_0.jpg",
-        name: "Vayne",
-    },
-    {
-        id: 2,
-        imageUrl: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Ezreal_0.jpg",
-        name: "Ezreal",
-    },
-    {
-        id: 3,
-        imageUrl: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Jinx_0.jpg",
-        name: "Jinx"
-    },
-    {
-        id: 4,
-        imageUrl: "https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Elise_0.jpg",
-        name: "Elise"
-    },
-];
 
 // Fisher-Yates shuffle. Credit: https://stackoverflow.com/a/2450976
 function shuffleArray(array) {
@@ -45,18 +22,58 @@ const clickedChampions = [];
 function flushClickedChampions() { clickedChampions.length = 0};
 
 export default function CardDeck({ score, handleGameOver, handleVictory, increaseScore }) {
-    const [deck, setDeck] = useState(initialChampions);
+    const [deck, setDeck] = useState([]);
+    const [clickedChampions, setClickedChampions] = useState([]);
+
+    useEffect(() => {
+        let ignore = false;
+        async function loadChampions() {
+            // need to get the latest version of the datadragon API
+            const versionResponse = await fetch("https://ddragon.leagueoflegends.com/api/versions.json");
+            const versions = await versionResponse.json();
+            const latestVersion = versions[0];
+            // then get the champions
+            const championsResponse = await fetch(`https://ddragon.leagueoflegends.com/cdn/${latestVersion}/data/en_US/champion.json`);
+            const champions = await championsResponse.json();
+            const data = [];
+            let count = 0;
+            for (const [key, value] of Object.entries(champions.data)) {
+                count++;
+                data.push(
+                    {
+                        id: value.key, 
+                        imageUrl: `https://ddragon.leagueoflegends.com/cdn/img/champion/splash/${key}_0.jpg`,
+                        name: key
+                    }
+                )
+            }
+            const luckyPicks = [];
+            while (luckyPicks.length < 12) {
+                const randomNumber = Math.floor(Math.random() * data.length).toString();
+                if (!luckyPicks.some(pick => pick === randomNumber)) {
+                    luckyPicks.push(randomNumber);
+                }
+            }
+            const selectedChampions = luckyPicks.map(index => data[Number(index)]);
+
+            if (!ignore) setDeck(selectedChampions);
+        }
+
+        loadChampions();
+
+        return () => { ignore = true; };
+    }, []);
 
     function handleClick(champion) {
         if (clickedChampions.some(clickedChampion => clickedChampion === champion)) {
             flushClickedChampions();
             handleGameOver();
         } else {
-            if (score === initialChampions.length - 1) {
+            if (score === deck.length - 1) {
                 flushClickedChampions();
                 handleVictory();
             } else {
-                clickedChampions.push(champion);
+                setClickedChampions(prev => [...prev, champion])
                 increaseScore();
                 setDeck(prevDeck => shuffleArray(prevDeck));
             }

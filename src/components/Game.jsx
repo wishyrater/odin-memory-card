@@ -19,7 +19,6 @@ export default function Game() {
             setHighScore(score);
         }
         setPhase("game over");
-        alert("Oops! You already clicked that champion. Try again.");
     }
 
     function handleVictory() {
