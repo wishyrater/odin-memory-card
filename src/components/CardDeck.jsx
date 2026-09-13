@@ -18,8 +18,7 @@ function shuffleArray(array) {
     return copy;
 }
 
-const clickedChampions = [];
-function flushClickedChampions() { clickedChampions.length = 0};
+function flushArray(array) { array.length = 0};
 
 export default function CardDeck({ score, handleGameOver, handleVictory, increaseScore }) {
     const [deck, setDeck] = useState([]);
@@ -47,6 +46,7 @@ export default function CardDeck({ score, handleGameOver, handleVictory, increas
                     }
                 )
             }
+            // pick twelve at random
             const luckyPicks = [];
             while (luckyPicks.length < 12) {
                 const randomNumber = Math.floor(Math.random() * data.length).toString();
@@ -66,11 +66,11 @@ export default function CardDeck({ score, handleGameOver, handleVictory, increas
 
     function handleClick(champion) {
         if (clickedChampions.some(clickedChampion => clickedChampion === champion)) {
-            flushClickedChampions();
+            setClickedChampions([]);
             handleGameOver();
         } else {
             if (score === deck.length - 1) {
-                flushClickedChampions();
+                setClickedChampions([]);
                 handleVictory();
             } else {
                 setClickedChampions(prev => [...prev, champion])
