@@ -1,11 +1,15 @@
 import './App.css'
 import Game from "./components/Game"
+import Nav from "./components/Nav"
 
 function App() {
 
   return (
     <>
-    <Game />
+      <Nav></Nav>
+      <main>
+        <Game />
+      </main>
     </>
   )
 }

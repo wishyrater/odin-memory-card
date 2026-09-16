@@ -41,16 +41,16 @@ export default function Game() {
     } else if (phase === "playing") {
         return (
             <div className="game">
-                <CardDeck score={score} handleGameOver={handleGameOver} handleVictory={handleVictory} increaseScore={increaseScore}></CardDeck>
                 <Scoreboard currentScore={score} highScore={highScore}></Scoreboard>
+                <CardDeck score={score} handleGameOver={handleGameOver} handleVictory={handleVictory} increaseScore={increaseScore}></CardDeck>
             </div> 
         )
     } else if (phase === "game over") {
         return (
             <div className="game">
+                <Scoreboard currentScore={score} highScore={highScore}></Scoreboard>
                 <span><p>Oops! You already clicked that champion. Try again.</p></span>
                 <button onClick={startGame}>Try again</button>
-                <Scoreboard currentScore={score} highScore={highScore}></Scoreboard>
             </div>
         )
     } else if (phase === "victory") {
