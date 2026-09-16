@@ -1,0 +1,9 @@
+.scoreboard {
+    display: flex;
+    gap: 1rem;
+
+    border: 4px solid var(--gold);
+    margin: 12px;
+    padding: 18px;
+    box-shadow: var(--shadow-md);
+}

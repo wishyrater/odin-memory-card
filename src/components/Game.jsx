@@ -1,6 +1,7 @@
 import { useState } from "react";
 import CardDeck from "./CardDeck"
 import Scoreboard from "./Scoreboard"
+import "./Game.css";
 
 const initialScore = 0;
 const initialPhase = "intro";
