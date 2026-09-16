@@ -1,0 +1,15 @@
+.card {
+    background-color: var(--dark-blue);
+    box-sizing: border-box;
+    color: white;
+    border-radius: 4px;
+    box-shadow: var(--shadow-md);
+    transition: box-shadow 0.2s, transform 0.2s;
+
+    text-align: center;
+}
+
+.card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+}

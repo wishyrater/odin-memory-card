@@ -1,6 +1,5 @@
-// this should just be a card. a mostly static asset
-// should have an image, and a title
-// when clicked, should trigger an event to check score etc.
+import "./Card.css";
+
 export default function Card({ onClick, champion }) {
     return (
         <div className="card" onClick={() => onClick(champion)} >
