@@ -2,6 +2,7 @@
 // should have an event handler to shuffle the cards if one is clicked
 import { useEffect, useState } from "react";
 import Card from "./Card";
+import "./CardDeck.css"
 
 // Fisher-Yates shuffle. Credit: https://stackoverflow.com/a/2450976
 function shuffleArray(array) {
