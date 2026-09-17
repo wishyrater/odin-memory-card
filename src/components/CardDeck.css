@@ -1,5 +1,5 @@
 .card-grid {
-    max-width: 1400px;
+    width: min(100%, 1400px);
     margin-inline: auto;
 
     display: grid;
