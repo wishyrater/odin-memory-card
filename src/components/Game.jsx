@@ -34,21 +34,21 @@ export default function Game() {
 
     if (phase === "intro") {
         return (
-            <div className="game">
+            <div className="game intro">
                 <span><p>How sharp is your memory? Click all champions without clicking the same champion twice, and you win!</p></span>
                 <button onClick={startGame}>Start game</button>
             </div>
         )
     } else if (phase === "playing") {
         return (
-            <div className="game">
+            <div className="game playing">
                 <Scoreboard currentScore={score} highScore={highScore}></Scoreboard>
                 <CardDeck score={score} handleGameOver={handleGameOver} handleVictory={handleVictory} increaseScore={increaseScore}></CardDeck>
             </div> 
         )
     } else if (phase === "game over") {
         return (
-            <div className="game">
+            <div className="game over">
                 <Scoreboard currentScore={score} highScore={highScore}></Scoreboard>
                 <span><p>Oops! You already clicked that champion. Try again.</p></span>
                 <button onClick={startGame}>Try again</button>
@@ -56,7 +56,7 @@ export default function Game() {
         )
     } else if (phase === "victory") {
         return (
-            <div className="game">
+            <div className="game victory">
                 <span><p>Nice one! You got them all. Want to play again?</p></span>
                 <button onClick={startGame}>Play again</button>
             </div>
