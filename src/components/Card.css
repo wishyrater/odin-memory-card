@@ -13,3 +13,8 @@
     box-shadow: var(--shadow-lg);
     transform: translateY(-2px);
 }
+
+img {
+    max-width: 100%;
+    height: auto;
+}
