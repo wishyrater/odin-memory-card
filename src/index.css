@@ -4,6 +4,13 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: "Bellefair";
+    src: url("./assets/fonts/Bellefair-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
     --gold: #C79B3B;
     --dark-blue: #0A1428;
@@ -24,4 +31,6 @@ body {
     margin: 0;
     display: flex;
     flex-direction: column;
+
+    font-family: "Bellefair";
 }
