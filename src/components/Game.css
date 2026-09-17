@@ -3,3 +3,22 @@
     flex-direction: column;
     align-items: center;
 }
+
+button {
+    background-color: var(--gold);
+    padding: 10px;
+    width: 150px;
+    font-size: large;
+    font-family: "Bellefair", arial;
+
+    border: none;
+    border-radius: 8px;
+    box-shadow: var(--shadow-md);
+    transition: box-shadow 0.2s, transform 0.2s, opacity 0.2s;
+}
+
+button:hover {
+    box-shadow: var(--shadow-lg);
+    opacity: 85%;
+    transform: translateY(-2px)
+}
